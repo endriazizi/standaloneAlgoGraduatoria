@@ -1,3 +1,6 @@
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -75,7 +78,7 @@ public class MainEsecizioScuola {
                                             &&
                                             (domanda.getEsito().getStringaEsitoNelCsv().equals("Pending"))
 //                                                            (domanda.getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_AMMESSO))
-                    )).collect(Collectors.toList());
+                            )).collect(Collectors.toList());
 
 
                     // ORDINO LE DOMANDE listDomandePrimaScelta e VERIFICA I DOPPIONI
@@ -132,7 +135,9 @@ public class MainEsecizioScuola {
 
         for (Scuola scuola : listScuole) {
 
-            //---------------------------- ORDINAMENTO ANTICIPATARIO
+            //---------------------------- ORDINAMENTO ANTICIPATARIO DEVO ORDINARE QUI
+
+            // - MAX int
             mapGraduatoria = scuola.getGraduatoria().getMapDomande().entrySet().stream().sorted((o1, o2) -> {
                 int resultPrimoConfrontoDaPunteggio = -(new Integer((o1.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ? o1.getKey().getPunteggioPrimaScelta() : o1.getKey().getPunteggioSecondaScelta()).compareTo(new Integer((o2.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ? o2.getKey().getPunteggioPrimaScelta() : o2.getKey().getPunteggioSecondaScelta())));
 
@@ -156,12 +161,60 @@ public class MainEsecizioScuola {
                 resultPrimoConfrontoDaPunteggio = (o1.getKey().getEsito().equals(o2.getKey().getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getKey().getEsito().getPeso().compareTo(o2.getKey().getEsito().getPeso()));
 
 
+//                if (resultPrimoConfrontoDaPunteggio == 0) {
+//                    //System.out.println("PARIMERITO");
+//                    return (o1.getKey().getNomePersona().compareTo(o2.getKey().getNomePersona()));
+//                }
+
+                //                resultPrimoConfrontoDaPunteggio = (Integer.compare(o1.getPunteggioFratelli(), o2.getPunteggioFratelli()));
+                int punteggioFratelli = -(Integer.compare(o1.getKey().getPunteggioFratelli(), o2.getKey().getPunteggioFratelli()));
 
                 if (resultPrimoConfrontoDaPunteggio == 0) {
-                    //System.out.println("PARIMERITO");
-                    return (o1.getKey().getNomePersona().compareTo(o2.getKey().getNomePersona()));
-                } else {
+                    resultPrimoConfrontoDaPunteggio = punteggioFratelli;
+
                 }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("punteggioFratelli == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroMadrePrimaScelta(), o2.getKey().getPuntLavoroMadrePrimaScelta()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("getPuntLavoroMadrePrimaScelta == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroMadreSecondaScelta(), o2.getKey().getPuntLavoroMadreSecondaScelta()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("getPuntLavoroMadreSecondaScelta == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntavoroPadrePrimaScelta(), o2.getKey().getPuntavoroPadrePrimaScelta()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("getPuntavoroPadrePrimaScelta == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroPadreSecondaScelta(), o2.getKey().getPuntLavoroPadreSecondaScelta()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("getPuntLavoroPadreSecondaScelta == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPunteggioGravidanza(), o2.getKey().getPunteggioGravidanza()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("getPunteggioGravidanza == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPunteggioDisabilita(), o2.getKey().getPunteggioDisabilita()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+
+                    DateFormat f = new SimpleDateFormat("dd/mm/yyyy");
+                    Date d1 = f.parse(o1.getKey().getDataDiNascita(), new ParsePosition(0));
+                    Date d2 = f.parse(o2.getKey().getDataDiNascita(), new ParsePosition(0));
+
+                    System.out.println("getPunteggioDisabilita == 0");
+                    resultPrimoConfrontoDaPunteggio = -(d1.compareTo(d2));
+                }
+
+
                 return resultPrimoConfrontoDaPunteggio;
             }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
@@ -174,7 +227,6 @@ public class MainEsecizioScuola {
              */
 
 
-
             mapGraduatoria.entrySet().forEach(
                     entryDomandaEsito -> {
                         Integer idDomanda = entryDomandaEsito.getKey().getIdDomanda();
@@ -182,14 +234,14 @@ public class MainEsecizioScuola {
                         Map.Entry<Domanda, EnumStatoDomanda> domandaPrima = null;
                         Map.Entry<Domanda, EnumStatoDomanda> domandaSeconda = null;
 
-                        if(entryDomandaEsito.getKey().getScelta() == EnumSceltaDomanda.PRIMA_SCELTA) {
+                        if (entryDomandaEsito.getKey().getScelta() == EnumSceltaDomanda.PRIMA_SCELTA) {
                             domandaPrima = entryDomandaEsito;
                             // cerca seconda scelta
-                            for(Scuola scuolaIndice : listScuole) {
+                            for (Scuola scuolaIndice : listScuole) {
                                 Map<Domanda, EnumStatoDomanda> mappaDomande = scuolaIndice.getGraduatoria().getMapDomande();
-                                for(Map.Entry<Domanda, EnumStatoDomanda> domandaIndice : mappaDomande.entrySet()) {
-                                    if(domandaIndice.getKey().getIdDomanda().equals(idDomanda)
-                                        && domandaIndice.getKey().getScelta().equals(EnumSceltaDomanda.SECONDA_SCELTA)) {
+                                for (Map.Entry<Domanda, EnumStatoDomanda> domandaIndice : mappaDomande.entrySet()) {
+                                    if (domandaIndice.getKey().getIdDomanda().equals(idDomanda)
+                                            && domandaIndice.getKey().getScelta().equals(EnumSceltaDomanda.SECONDA_SCELTA)) {
                                         domandaSeconda = domandaIndice;
                                     }
                                 }
@@ -197,10 +249,10 @@ public class MainEsecizioScuola {
                         } else {
                             domandaSeconda = entryDomandaEsito;
                             // cerca prima scelta
-                            for(Scuola scuolaIndice : listScuole) {
+                            for (Scuola scuolaIndice : listScuole) {
                                 Map<Domanda, EnumStatoDomanda> mappaDomande = scuolaIndice.getGraduatoria().getMapDomande();
-                                for(Map.Entry<Domanda, EnumStatoDomanda> domandaIndice : mappaDomande.entrySet()) {
-                                    if(domandaIndice.getKey().getIdDomanda().equals(idDomanda)
+                                for (Map.Entry<Domanda, EnumStatoDomanda> domandaIndice : mappaDomande.entrySet()) {
+                                    if (domandaIndice.getKey().getIdDomanda().equals(idDomanda)
                                             && domandaIndice.getKey().getScelta().equals(EnumSceltaDomanda.PRIMA_SCELTA)) {
                                         domandaPrima = domandaIndice;
                                     }
@@ -208,10 +260,9 @@ public class MainEsecizioScuola {
                             }
                         }
 
-                        if(domandaPrima.getValue().equals(EnumStatoDomanda.AMMESSO)) {
+                        if (domandaPrima.getValue().equals(EnumStatoDomanda.AMMESSO)) {
                             domandaSeconda.setValue(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO);
-                        }
-                        else if(domandaSeconda.getValue().equals(EnumStatoDomanda.AMMESSO)) {
+                        } else if (domandaSeconda.getValue().equals(EnumStatoDomanda.AMMESSO)) {
                             domandaPrima.setValue(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO);
                         }
                     }
@@ -229,35 +280,35 @@ public class MainEsecizioScuola {
             for (Map.Entry<Domanda, EnumStatoDomanda> entry : mapGraduatoria.entrySet()) {
 
                 if (mapGraduatoriaCopy.containsKey(entry)) {
-   //                 System.out.println("YUPPY" + " " + entry.getKey().getNomePersona());
+                    //                 System.out.println("YUPPY" + " " + entry.getKey().getNomePersona());
                 }
 
 
-                if(!entry.getValue().equals(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO)) {
+                if (!entry.getValue().equals(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO)) {
                     posizione++;
                     System.out.print(
                             scuola.getNomeScuola().toString() + ";"
-                            + entry.getKey().getIdDomanda() + ";"
-                            + entry.getKey().getNomePersona() + ";"
-                            + entry.getValue() + ";"
-                            + posizione + ";"
-                            + entry.getKey().getEsito() + ";"
-                            //////// AGGIUNTO PER VERIFICARE IL PUNTEGGIO PRESO
-                            + (entry.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola()) ?
-                            entry.getKey().getPunteggioPrimaScelta() : entry.getKey().getPunteggioSecondaScelta()) + ";"
+                                    + entry.getKey().getIdDomanda() + ";"
+                                    + entry.getKey().getNomePersona() + ";"
+                                    + entry.getValue() + ";"
+                                    + posizione + ";"
+                                    + entry.getKey().getEsito() + ";"
+                                    //////// AGGIUNTO PER VERIFICARE IL PUNTEGGIO PRESO
+                                    + (entry.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola()) ?
+                                    entry.getKey().getPunteggioPrimaScelta() : entry.getKey().getPunteggioSecondaScelta()) + ";"
 
-                            + entry.getKey().getScelta() + ";"
-                                    + entry.getKey().getPunteggioFratelli()+ ";"
+                                    + entry.getKey().getScelta() + ";"
+                                    + entry.getKey().getPunteggioFratelli() + ";"
 
-                                    + entry.getKey().getPuntLavoroMadrePrimaScelta()+ ";"
-                                    + entry.getKey().getPuntLavoroMadreSecondaScelta()+ ";"
+                                    + entry.getKey().getPuntLavoroMadrePrimaScelta() + ";"
+                                    + entry.getKey().getPuntLavoroMadreSecondaScelta() + ";"
 
-                                    + entry.getKey().getPuntavoroPadrePrimaScelta()+ ";"
-                                    + entry.getKey().getPuntLavoroPadreSecondaScelta()+ ";"
+                                    + entry.getKey().getPuntavoroPadrePrimaScelta() + ";"
+                                    + entry.getKey().getPuntLavoroPadreSecondaScelta() + ";"
 
-                                    + entry.getKey().getPunteggioGravidanza()+ ";"
-                                    + entry.getKey().getPunteggioDisabilita()+ ";"
-                                    + entry.getKey().getDataDiNascita()+ ";"
+                                    + entry.getKey().getPunteggioGravidanza() + ";"
+                                    + entry.getKey().getPunteggioDisabilita() + ";"
+                                    + entry.getKey().getDataDiNascita() + ";"
 
                                     + "\n"
 
@@ -267,9 +318,6 @@ public class MainEsecizioScuola {
 
 
             }
-
-
-
 
 
         }
@@ -290,8 +338,6 @@ public class MainEsecizioScuola {
 //        }
 
 
-
-
     }
 
 
@@ -299,7 +345,6 @@ public class MainEsecizioScuola {
     private static void preaprazioneMappaDomandStatoConStatoInizialeInPending(List<Scuola> listScuole,
                                                                               List<Graduatoria> listGraduatorie,
                                                                               List<Domanda> listDomande) {
-
 
 
         listGraduatorie.stream().forEach(
@@ -316,52 +361,48 @@ public class MainEsecizioScuola {
                         }
 
                         Domanda domandaToInsert = new Domanda(domanda);
-                        if(domandaToInsert.getPrimaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola())) {
+                        if (domandaToInsert.getPrimaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola())) {
                             domandaToInsert.setScelta(EnumSceltaDomanda.PRIMA_SCELTA);
-                        }
-                        else if(domandaToInsert.getSecondaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola())) {
+                        } else if (domandaToInsert.getSecondaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola())) {
                             domandaToInsert.setScelta(EnumSceltaDomanda.SECONDA_SCELTA);
                         }
 
 
-
-                        if(domandaToInsert.getPunteggioPrimaScelta() < 0){
-                          //  System.out.println("BAUDO VUOTO");
+                        if (domandaToInsert.getPunteggioPrimaScelta() < 0) {
+                            //  System.out.println("BAUDO VUOTO");
                             vuotiPrima[0]++;
                         }
-                       // System.out.println("VUOTI PRIMA "+ vuotiPrima[0]);
+                        // System.out.println("VUOTI PRIMA "+ vuotiPrima[0]);
                         if (
                             // controllare che la domanda non sia vuota
                             // se la domanda include prima scuola oppure se la domanda include seconda scuola
                                 ((domandaToInsert.getPrimaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola())) ||
                                         (domandaToInsert.getSecondaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola())))
-                             //   && domandaToInsert.getPunteggioPrimaScelta() < 0
+                            //   && domandaToInsert.getPunteggioPrimaScelta() < 0
                         ) {
                             mapDomandaStato.put(domandaToInsert, EnumStatoDomanda.IN_PENDING);
-                        } else{
+                        } else {
                             //mapDomandaStato.put(domandaToInsert, EnumStatoDomanda.IN_PENDING);
                         }
 
 
-
                         /**
-                        if (
-                            // controllare che la domanda non sia vuota
-                            // se la domanda include prima scuola oppure se la domanda include seconda scuola
-                                (
-                                        (domandaToInsert.getPrimaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola()))
-                                                ||
-                                                (domandaToInsert.getSecondaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola()))
-                                                        && domandaToInsert.getPunteggioPrimaScelta() < 0
-                                )
-                        ) {
-                            System.out.println("BAUDO !!!");
-                            mapDomandaStato.put(domandaToInsert, EnumStatoDomanda.PROVA_ANTICIPATARIO);
-                        } else {
-                            mapDomandaStato.put(domandaToInsert, EnumStatoDomanda.IN_PENDING);
-                        }
-                        **/
-
+                         if (
+                         // controllare che la domanda non sia vuota
+                         // se la domanda include prima scuola oppure se la domanda include seconda scuola
+                         (
+                         (domandaToInsert.getPrimaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola()))
+                         ||
+                         (domandaToInsert.getSecondaScelta().getIdScuola() == (graduatoria.getScuola().getIdScuola()))
+                         && domandaToInsert.getPunteggioPrimaScelta() < 0
+                         )
+                         ) {
+                         System.out.println("BAUDO !!!");
+                         mapDomandaStato.put(domandaToInsert, EnumStatoDomanda.PROVA_ANTICIPATARIO);
+                         } else {
+                         mapDomandaStato.put(domandaToInsert, EnumStatoDomanda.IN_PENDING);
+                         }
+                         **/
 
 
                     });
@@ -375,14 +416,18 @@ public class MainEsecizioScuola {
             @Override
             public int compare(Domanda o1, Domanda o2) {
                 // - ORDINE DECRESCENTE
-                int resultPrimoConfrontoDaPunteggio = -(new Integer((o1.getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ? o1.getPunteggioPrimaScelta() : o1.getPunteggioSecondaScelta()).compareTo(new Integer((o2.getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ? o2.getPunteggioPrimaScelta() : o2.getPunteggioSecondaScelta())));
+                int resultPrimoConfrontoDaPunteggio = -(new Integer((o1.getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ?
+                        o1.getPunteggioPrimaScelta() :
+                        o1.getPunteggioSecondaScelta()).compareTo(new Integer((o2.getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ?
+                        o2.getPunteggioPrimaScelta() : o2.getPunteggioSecondaScelta())));
 
                 // ==0 se il confronto ho due parimerito prendo la persono con in orfine alfabetico
                 //crescente infatti non c'è il - che mi idica decrescente
-                if (resultPrimoConfrontoDaPunteggio == 0) {
-                    return (o1.getNomePersona().compareTo(o2.getNomePersona()));
-                } else{
-                }
+//                if (resultPrimoConfrontoDaPunteggio == 0) {
+//                    System.out.println("APREGGIO");
+//                    return (o1.getNomePersona().compareTo(o2.getNomePersona()));
+//                }
+
                 return resultPrimoConfrontoDaPunteggio;
             }
         });
@@ -488,7 +533,7 @@ public class MainEsecizioScuola {
                         //QUI
                         if (listDomandeAmmessi.contains(domandaStato.getKey())
                                 && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")
-                                &&  domandaStato.getKey().getPunteggioSecondaScelta() > 0
+                                && domandaStato.getKey().getPunteggioSecondaScelta() > 0
                         ) {
 
                             domandaStato.setValue(EnumStatoDomanda.AMMESSO);
@@ -546,7 +591,7 @@ public class MainEsecizioScuola {
         Scuola scuolaMilano8 = new Scuola(8, "G.Galilei Tresei B.go S.Maria ", 33);
         Scuola scuolaMilano9 = new Scuola(9, "G.GalileiPollicino Casebruciate ", 11);
         Scuola scuolaMilano10 = new Scuola(10, "Gaudiano - Mille colori", 7);
-        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 8);
+        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 3);
         Scuola scuolaMilano12 = new Scuola(12, "Gulliver di Via Flaminia", 28);
         Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini sez primavera", 18);
         Scuola scuolaMilano14 = new Scuola(14, "Il Giardino fantastico di Via Madonna di Loreto", 8);
@@ -561,7 +606,7 @@ public class MainEsecizioScuola {
         Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
         Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
         Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
-        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
+        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 1);
         Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
         Scuola scuolaMilano28 = new Scuola(28, "VUOTO", 0);
         Scuola scuolaMilano29 = new Scuola(29, "UNDEFINED", 0);

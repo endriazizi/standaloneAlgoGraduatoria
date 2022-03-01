@@ -121,7 +121,7 @@ public class CSVReaderParser {
             case "Gaudiano - Mille colori (7)":
                 primaScelta = listScuole.get(10);
                 break;
-            case "Grillo parlante (8)":
+            case "Grillo parlante (3)":
                 primaScelta = listScuole.get(11);
                 break;
             case "Gulliver di Via Flaminia (28)":
@@ -166,7 +166,7 @@ public class CSVReaderParser {
             case "Poi poi di Via Ferraris (22)":
                 primaScelta = listScuole.get(25);
                 break;
-            case "Specchio magico (17)":
+            case "Specchio magico (1)":
                 primaScelta = listScuole.get(26);
                 break;
             case "Villa San Martino - Via togliatti (54)":
@@ -222,7 +222,7 @@ public class CSVReaderParser {
             case "Gaudiano - Mille colori (7)":
                 secondaScelta = listScuole.get(10);
                 break;
-            case "Grillo parlante (8)":
+            case "Grillo parlante (3)":
                 secondaScelta = listScuole.get(11);
                 break;
             case "Gulliver di Via Flaminia (28)":
@@ -267,7 +267,7 @@ public class CSVReaderParser {
             case "Poi poi di Via Ferraris (22)":
                 secondaScelta = listScuole.get(25);
                 break;
-            case "Specchio magico (17)":
+            case "Specchio magico (1)":
                 secondaScelta = listScuole.get(26);
                 break;
             case "Villa San Martino - Via togliatti (54)":
@@ -302,8 +302,6 @@ public class CSVReaderParser {
         } else {
             punteggioFratelli = Integer.parseInt(metadata[6]);
         }
-//        int punteggioFratelli = Integer.parseInt(metadata[6]);
-
 
         int puntLavoroMadrePrimaScelta;
         if (metadata[7] == null || metadata[7].length() == 0){
@@ -323,9 +321,9 @@ public class CSVReaderParser {
 
         int puntavoroPadrePrimaScelta = 0;
         if (metadata[9] == null || metadata[9].length() == 0){
-            puntLavoroMadrePrimaScelta = 0;
+            puntavoroPadrePrimaScelta = 0;
         } else {
-            puntLavoroMadrePrimaScelta = Integer.parseInt(metadata[9]);
+            puntavoroPadrePrimaScelta = Integer.parseInt(metadata[9]);
         }
 
 
@@ -338,18 +336,18 @@ public class CSVReaderParser {
 
         int punteggioGravidanza = 0;
         if (metadata[11] == null || metadata[11].length() == 0){
-            puntLavoroMadrePrimaScelta = 0;
+            punteggioGravidanza = 0;
         } else {
-            puntLavoroMadrePrimaScelta = Integer.parseInt(metadata[11]);
+            punteggioGravidanza = Integer.parseInt(metadata[11]);
         }
 
 
 
         int punteggioDisabilita = 0;
         if (metadata[12] == null || metadata[12].length() == 0){
-            puntLavoroMadrePrimaScelta = 0;
+            punteggioDisabilita = 0;
         } else {
-            puntLavoroMadrePrimaScelta = Integer.parseInt(metadata[12]);
+            punteggioDisabilita = Integer.parseInt(metadata[12]);
         }
 
 
@@ -386,7 +384,7 @@ public class CSVReaderParser {
         Scuola scuolaMilano8 = new Scuola(8, "G.Galilei Tresei B.go S.Maria ", 33);
         Scuola scuolaMilano9 = new Scuola(9, "G.GalileiPollicino Casebruciate ", 11);
         Scuola scuolaMilano10 = new Scuola(10, "Gaudiano - Mille colori", 7);
-        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 8);
+        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 3);
         Scuola scuolaMilano12 = new Scuola(12, "Gulliver di Via Flaminia", 29);
 //        Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini sez primavera", 18);
         Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini", 18);
@@ -402,7 +400,7 @@ public class CSVReaderParser {
         Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
         Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
         Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
-        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
+        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 1);
         Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
         Scuola scuolaMilano28 = new Scuola(28, "VUOTO", 0);
 
