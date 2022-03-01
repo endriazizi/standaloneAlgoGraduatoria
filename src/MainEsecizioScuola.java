@@ -139,7 +139,19 @@ public class MainEsecizioScuola {
 
             // - MAX int
             mapGraduatoria = scuola.getGraduatoria().getMapDomande().entrySet().stream().sorted((o1, o2) -> {
-                int resultPrimoConfrontoDaPunteggio = -(new Integer((o1.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ? o1.getKey().getPunteggioPrimaScelta() : o1.getKey().getPunteggioSecondaScelta()).compareTo(new Integer((o2.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ? o2.getKey().getPunteggioPrimaScelta() : o2.getKey().getPunteggioSecondaScelta())));
+                int resultPrimoConfrontoDaPunteggio = -(new Integer((o1.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ?
+                        o1.getKey().getPunteggioPrimaScelta() : o1.getKey().getPunteggioSecondaScelta()).compareTo(new Integer((o2.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ?
+                        o2.getKey().getPunteggioPrimaScelta() : o2.getKey().getPunteggioSecondaScelta())));
+
+                boolean prova = (o1.getKey().getSecondaScelta().getIdScuola() == (scuola.getIdScuola())
+                        && o2.getKey().getSecondaScelta().getIdScuola() == (scuola.getIdScuola()
+                ));
+
+                if (prova) {
+                    System.out.println("PIPPO");
+                    System.out.println(o1.getKey().getScelta() + " " + o1.getKey().getNomePersona());
+                    System.out.println(o2.getKey().getScelta()+ " " + o1.getKey().getNomePersona());
+                }
 
                 // o1 = ammesso // in pending
                 // o2 = anticipatario // anticipatario
@@ -174,13 +186,14 @@ public class MainEsecizioScuola {
 
                 }
 
-                if (resultPrimoConfrontoDaPunteggio == 0) {
+                if (resultPrimoConfrontoDaPunteggio == 0 && !prova) {
                     System.out.println("punteggioFratelli == 0");
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroMadrePrimaScelta(), o2.getKey().getPuntLavoroMadrePrimaScelta()));
                 }
 
-                if (resultPrimoConfrontoDaPunteggio == 0) {
-                    System.out.println("getPuntLavoroMadrePrimaScelta == 0");
+                if (resultPrimoConfrontoDaPunteggio == 0 && prova) {
+                    System.out.println("getPuntLavoroMadrePrimaScelta PROVA== 0");
+
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroMadreSecondaScelta(), o2.getKey().getPuntLavoroMadreSecondaScelta()));
                 }
 
@@ -211,7 +224,7 @@ public class MainEsecizioScuola {
                     Date d2 = f.parse(o2.getKey().getDataDiNascita(), new ParsePosition(0));
 
                     System.out.println("getPunteggioDisabilita == 0");
-                    resultPrimoConfrontoDaPunteggio = -(d1.compareTo(d2));
+                    resultPrimoConfrontoDaPunteggio = (d1.compareTo(d2));
                 }
 
 
@@ -606,7 +619,7 @@ public class MainEsecizioScuola {
         Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
         Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
         Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
-        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 1);
+        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
         Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
         Scuola scuolaMilano28 = new Scuola(28, "VUOTO", 0);
         Scuola scuolaMilano29 = new Scuola(29, "UNDEFINED", 0);
