@@ -1,6 +1,10 @@
 
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,15 +19,15 @@ public class Prova {
     private static List<Customer> getUnSortedCustomers() {
 
         return Arrays.asList(
-                new Customer("Shalini", "Chennai", 60),
-                new Customer("Sneha", "Pune", 73),
-                new Customer("Simran", "Bangalore", 37),
-                new Customer("Trisha", "Hyderabad", 52),
-                new Customer("Shalini", "Chennai", 70),
-                new Customer("Abirami", "Bangalore", 48),
-                new Customer("AZIZI", "NADIA", 73),
-                new Customer("Sneha", "Pune", 62),
-                new Customer("AZIZI", "ENDRI", 50)
+                new Customer("Shalini", "Chennai", 60, "12/12/2077"),
+                new Customer("Sneha", "Pune", 73, "12/12/2010"),
+                new Customer("Simran", "Bangalore", 37, "01/01/2010"),
+                new Customer("Trisha", "Hyderabad", 52, "01/01/2090"),
+                new Customer("Shalini", "Chennai", 70, "12/12/2020"),
+                new Customer("Abirami", "Bangalore", 48, "12/12/2070"),
+                new Customer("AZIZI", "NADIA", 73, "12/12/2060"),
+                new Customer("Sneha", "Pune", 62, "12/12/2030"),
+                new Customer("AZIZI", "ENDRI", 50, "12/12/2020")
         );
     }
 
@@ -69,36 +73,22 @@ public class Prova {
             @Override
             public int compare(Customer o1, Customer o2) {
                 // - ORDINE DECRESCENTE
-                int resultPrimoConfrontoDaPunteggio = -((o1.getCustAge()).compareTo(o2.getCustAge()));
+                //int resultPrimoConfrontoDaPunteggio = -((o1.getCustAge()).compareTo(o2.getCustAge()));
+                //int resultPrimoConfrontoDaPunteggio = -((o1.getDataDiNascita()).compareTo(o2.getDataDiNascita()));
 
-                // ==0 se il confronto ho due parimerito prendo la persono con in orfine alfabetico
-                //crescente infatti non c'è il - che mi idica decrescente
+                DateFormat f = new SimpleDateFormat("dd/mm/yyyy");
+                Date d1 = f.parse(o1.getDataDiNascita(), new ParsePosition(0));
+                Date d2 = f.parse(o2.getDataDiNascita(), new ParsePosition(0));
 
-//                resultPrimoConfrontoDaPunteggio = (Integer.compare(o1.getPunteggioFratelli(), o2.getPunteggioFratelli()));
-                int punteggioFratelli = (o1.getCustName().compareTo(o2.getCustName()));
+                System.out.println("getPunteggioDisabilita == 0");
+                int resultPrimoConfrontoDaPunteggio = (d1.compareTo(d2));
 
-                if (resultPrimoConfrontoDaPunteggio == 0) {
-                    System.out.println("resultPrimoConfrontoDaPunteggio == 0    TRUE");
-                    resultPrimoConfrontoDaPunteggio = punteggioFratelli;
-
-                }
-
-
-//                else if(punteggioFratelli == 0){
-//                    System.out.println("resultPrimoConfrontoDaPunteggio == 0    PIPPO");
-//                    resultPrimoConfrontoDaPunteggio= -(Integer.compare(o1.getPuntLavoroMadrePrimaScelta(), o2.getPuntLavoroMadrePrimaScelta()));
-//                }
-
-
-//                int punteggioFratelli = -(Integer.compare(o1.getPunteggioFratelli(), o2.getPunteggioFratelli()));
-//                int madrePrimaScelta = -(Integer.compare(o1.getPuntLavoroMadrePrimaScelta(), o2.getPuntLavoroMadrePrimaScelta()));
+//                int punteggioFratelli = (o1.getCustName().compareTo(o2.getCustName()));
 //
-//                if (punteggioFratelli == 0) {
-//                    return punteggioFratelli;
-//                }
+//                if (resultPrimoConfrontoDaPunteggio == 0) {
+//                    System.out.println("resultPrimoConfrontoDaPunteggio == 0    TRUE");
+//                    resultPrimoConfrontoDaPunteggio = punteggioFratelli;
 //
-//                if (madrePrimaScelta == 0) {
-//                    return -(Integer.compare(o1.getPuntLavoroMadreSecondaScelta(), o2.getPuntLavoroMadreSecondaScelta()));
 //                }
 
 

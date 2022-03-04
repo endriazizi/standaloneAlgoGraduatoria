@@ -148,9 +148,9 @@ public class MainEsecizioScuola {
                 ));
 
                 if (prova) {
-                    System.out.println("PIPPO");
-                    System.out.println(o1.getKey().getScelta() + " " + o1.getKey().getNomePersona());
-                    System.out.println(o2.getKey().getScelta()+ " " + o1.getKey().getNomePersona());
+//                    System.out.println("PIPPO");
+//                    System.out.println(o1.getKey().getScelta() + " " + o1.getKey().getNomePersona());
+//                    System.out.println(o2.getKey().getScelta()+ " " + o1.getKey().getNomePersona());
                 }
 
                 // o1 = ammesso // in pending
@@ -197,12 +197,14 @@ public class MainEsecizioScuola {
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroMadreSecondaScelta(), o2.getKey().getPuntLavoroMadreSecondaScelta()));
                 }
 
-                if (resultPrimoConfrontoDaPunteggio == 0) {
+                if (resultPrimoConfrontoDaPunteggio == 0 && !prova) {
                     System.out.println("getPuntLavoroMadreSecondaScelta == 0");
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntavoroPadrePrimaScelta(), o2.getKey().getPuntavoroPadrePrimaScelta()));
                 }
 
-                if (resultPrimoConfrontoDaPunteggio == 0) {
+                // MI SALTA
+
+                if (resultPrimoConfrontoDaPunteggio == 0 && prova) {
                     System.out.println("getPuntavoroPadrePrimaScelta == 0");
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroPadreSecondaScelta(), o2.getKey().getPuntLavoroPadreSecondaScelta()));
                 }
@@ -619,7 +621,7 @@ public class MainEsecizioScuola {
         Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
         Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
         Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
-        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
+        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 1);
         Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
         Scuola scuolaMilano28 = new Scuola(28, "VUOTO", 0);
         Scuola scuolaMilano29 = new Scuola(29, "UNDEFINED", 0);

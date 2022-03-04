@@ -4,6 +4,7 @@ public class Customer {
     String custName;
     String custCity;
     Integer custAge;
+    String dataDiNascita;
 
     // 3-arg parameterized constructor
 
@@ -12,10 +13,11 @@ public class Customer {
     // toString() method
 
 
-    public Customer(String custName, String custCity, Integer custAge) {
+    public Customer(String custName, String custCity, Integer custAge, String dataDiNascita) {
         this.custName = custName;
         this.custCity = custCity;
         this.custAge = custAge;
+        this.dataDiNascita = dataDiNascita;
     }
 
     public String getCustName() {
@@ -42,12 +44,21 @@ public class Customer {
         this.custAge = custAge;
     }
 
+    public String getDataDiNascita() {
+        return dataDiNascita;
+    }
+
+    public void setDataDiNascita(String dataDiNascita) {
+        this.dataDiNascita = dataDiNascita;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
                 "custName='" + custName + '\'' +
                 ", custCity='" + custCity + '\'' +
                 ", custAge=" + custAge +
+                ", dataDiNascita='" + dataDiNascita + '\'' +
                 '}';
     }
 }
