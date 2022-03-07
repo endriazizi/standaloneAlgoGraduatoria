@@ -108,6 +108,7 @@ public class MainEsecizioScuola {
 
                         } else {
                             if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")) {
+                                System.out.println("PAPERINO");
                                 domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
                             } else {
@@ -143,42 +144,39 @@ public class MainEsecizioScuola {
                         o1.getKey().getPunteggioPrimaScelta() : o1.getKey().getPunteggioSecondaScelta()).compareTo(new Integer((o2.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) ?
                         o2.getKey().getPunteggioPrimaScelta() : o2.getKey().getPunteggioSecondaScelta())));
 
-                boolean prova = (o1.getKey().getSecondaScelta().getIdScuola() == (scuola.getIdScuola())
+
+
+                //resultPrimoConfrontoDaPunteggio = (o1.getKey().getEsito().equals(o2.getKey().getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getKey().getEsito().getPeso().compareTo(o2.getKey().getEsito().getPeso()));
+
+
+                // o1 = ammesso // in pending
+                // o2 = anticipatario // anticipatario
+                // ammesso > anticipatario
+
+                // o1 = anticipatario // anticipatario
+                // o2 = ammesso // in pending
+                // ammesso > anticipatario
+
+                // o1 = ammesso // in pending
+                // o2 = ammesso // in pending
+                // ammesso > anticipatario
+
+                // o1 = anticipatario // anticipatario
+                // o2 = anticipatario // anticipatario
+                // ammesso > anticipatario
+
+
+
+                boolean secondaScelta = (o1.getKey().getSecondaScelta().getIdScuola() == (scuola.getIdScuola())
                         && o2.getKey().getSecondaScelta().getIdScuola() == (scuola.getIdScuola()
                 ));
 
-                if (prova) {
-//                    System.out.println("PIPPO");
-//                    System.out.println(o1.getKey().getScelta() + " " + o1.getKey().getNomePersona());
-//                    System.out.println(o2.getKey().getScelta()+ " " + o1.getKey().getNomePersona());
-                }
-
-                // o1 = ammesso // in pending
-                // o2 = anticipatario // anticipatario
-                // ammesso > anticipatario
-
-                // o1 = anticipatario // anticipatario
-                // o2 = ammesso // in pending
-                // ammesso > anticipatario
-
-                // o1 = ammesso // in pending
-                // o2 = ammesso // in pending
-                // ammesso > anticipatario
-
-                // o1 = anticipatario // anticipatario
-                // o2 = anticipatario // anticipatario
-                // ammesso > anticipatario
-
+                boolean primaScelta = (o1.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())
+                        && o2.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola()
+                ));
 
                 resultPrimoConfrontoDaPunteggio = (o1.getKey().getEsito().equals(o2.getKey().getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getKey().getEsito().getPeso().compareTo(o2.getKey().getEsito().getPeso()));
 
-
-//                if (resultPrimoConfrontoDaPunteggio == 0) {
-//                    //System.out.println("PARIMERITO");
-//                    return (o1.getKey().getNomePersona().compareTo(o2.getKey().getNomePersona()));
-//                }
-
-                //                resultPrimoConfrontoDaPunteggio = (Integer.compare(o1.getPunteggioFratelli(), o2.getPunteggioFratelli()));
                 int punteggioFratelli = -(Integer.compare(o1.getKey().getPunteggioFratelli(), o2.getKey().getPunteggioFratelli()));
 
                 if (resultPrimoConfrontoDaPunteggio == 0) {
@@ -186,25 +184,25 @@ public class MainEsecizioScuola {
 
                 }
 
-                if (resultPrimoConfrontoDaPunteggio == 0 && !prova) {
-                    System.out.println("punteggioFratelli == 0");
+                if (resultPrimoConfrontoDaPunteggio == 0 && primaScelta) {
+                    System.out.println("PRIMA SCELTA");
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroMadrePrimaScelta(), o2.getKey().getPuntLavoroMadrePrimaScelta()));
                 }
 
-                if (resultPrimoConfrontoDaPunteggio == 0 && prova) {
-                    System.out.println("getPuntLavoroMadrePrimaScelta PROVA== 0");
+                if (resultPrimoConfrontoDaPunteggio == 0 && secondaScelta) {
+                    System.out.println("SECONDA SCELTA");
 
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroMadreSecondaScelta(), o2.getKey().getPuntLavoroMadreSecondaScelta()));
                 }
 
-                if (resultPrimoConfrontoDaPunteggio == 0 && !prova) {
-                    System.out.println("getPuntLavoroMadreSecondaScelta == 0");
+                if (resultPrimoConfrontoDaPunteggio == 0 && primaScelta) {
+                    System.out.println("PRIMA SCELTA");
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntavoroPadrePrimaScelta(), o2.getKey().getPuntavoroPadrePrimaScelta()));
                 }
 
                 // MI SALTA
 
-                if (resultPrimoConfrontoDaPunteggio == 0 && prova) {
+                if (resultPrimoConfrontoDaPunteggio == 0 && secondaScelta) {
                     System.out.println("getPuntavoroPadrePrimaScelta == 0");
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getKey().getPuntLavoroPadreSecondaScelta(), o2.getKey().getPuntLavoroPadreSecondaScelta()));
                 }
@@ -228,6 +226,9 @@ public class MainEsecizioScuola {
                     System.out.println("getPunteggioDisabilita == 0");
                     resultPrimoConfrontoDaPunteggio = (d1.compareTo(d2));
                 }
+
+                // DAJE
+//                resultPrimoConfrontoDaPunteggio = (o1.getValue().toString().compareTo(o2.getValue().toString()));
 
 
                 return resultPrimoConfrontoDaPunteggio;
@@ -443,6 +444,76 @@ public class MainEsecizioScuola {
 //                    return (o1.getNomePersona().compareTo(o2.getNomePersona()));
 //                }
 
+                //MYORDINE
+
+                boolean secondaScelta = (o1.getSecondaScelta().getIdScuola() == (scuola.getIdScuola())
+                        && o2.getSecondaScelta().getIdScuola() == (scuola.getIdScuola()
+                ));
+
+                boolean primaScelta = (o1.getPrimaScelta().getIdScuola() == (scuola.getIdScuola())
+                        && o2.getPrimaScelta().getIdScuola() == (scuola.getIdScuola()
+                ));
+
+
+
+                int punteggioFratelli = -(Integer.compare(o1.getPunteggioFratelli(), o2.getPunteggioFratelli()));
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    resultPrimoConfrontoDaPunteggio = punteggioFratelli;
+
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0 && primaScelta) {
+                    System.out.println("PRIMA SCELTA");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntLavoroMadrePrimaScelta(), o2.getPuntLavoroMadrePrimaScelta()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0 && secondaScelta) {
+                    System.out.println("SECONDA SCELTA");
+
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntLavoroMadreSecondaScelta(), o2.getPuntLavoroMadreSecondaScelta()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0 && primaScelta) {
+                    System.out.println("PRIMA SCELTA");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntavoroPadrePrimaScelta(), o2.getPuntavoroPadrePrimaScelta()));
+                }
+
+                // MI SALTA
+
+                if (resultPrimoConfrontoDaPunteggio == 0 && secondaScelta) {
+                    System.out.println("getPuntavoroPadrePrimaScelta == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntLavoroPadreSecondaScelta(), o2.getPuntLavoroPadreSecondaScelta()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("getPuntLavoroPadreSecondaScelta == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPunteggioGravidanza(), o2.getPunteggioGravidanza()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+                    System.out.println("getPunteggioGravidanza == 0");
+                    resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPunteggioDisabilita(), o2.getPunteggioDisabilita()));
+                }
+
+                if (resultPrimoConfrontoDaPunteggio == 0) {
+
+                    DateFormat f = new SimpleDateFormat("dd/mm/yyyy");
+                    Date d1 = f.parse(o1.getDataDiNascita(), new ParsePosition(0));
+                    Date d2 = f.parse(o2.getDataDiNascita(), new ParsePosition(0));
+
+                    System.out.println("getPunteggioDisabilita == 0");
+                    resultPrimoConfrontoDaPunteggio = (d1.compareTo(d2));
+                }
+
+                /**
+                 *  ATTENZIONE ERA STATA AGGIUNTA QUESTA LOGICA:
+                 *  resultPrimoConfrontoDaPunteggio = (o1.equals(o2.getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getEsito().getPeso().compareTo(o2.getEsito().getPeso()));
+                 */
+
+              //  resultPrimoConfrontoDaPunteggio = (o1.getValue().toString().compareTo(o2.getValue().toString()));
+
+
                 return resultPrimoConfrontoDaPunteggio;
             }
         });
@@ -527,13 +598,76 @@ public class MainEsecizioScuola {
                             // ammesso > anticipatario
 
 
-                            resultPrimoConfrontoDaPunteggio = (o1.getEsito().equals(o2.getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getEsito().getPeso().compareTo(o2.getEsito().getPeso()));
+                         //   resultPrimoConfrontoDaPunteggio = (o1.getEsito().equals(o2.getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getEsito().getPeso().compareTo(o2.getEsito().getPeso()));
 
+
+//                            if (resultPrimoConfrontoDaPunteggio == 0) {
+//                                return (o1.getNomePersona().compareTo(o2.getNomePersona()));
+//                            }
+
+
+                            //MYORDINE DUE
+                            boolean secondaScelta = (o1.getSecondaScelta().getIdScuola() == (scuola.getIdScuola())
+                                    && o2.getSecondaScelta().getIdScuola() == (scuola.getIdScuola()
+                            ));
+
+                            boolean primaScelta = (o1.getPrimaScelta().getIdScuola() == (scuola.getIdScuola())
+                                    && o2.getPrimaScelta().getIdScuola() == (scuola.getIdScuola()
+                            ));
+
+                            resultPrimoConfrontoDaPunteggio = (o1.equals(o2.getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getEsito().getPeso().compareTo(o2.getEsito().getPeso()));
+
+                            int punteggioFratelli = -(Integer.compare(o1.getPunteggioFratelli(), o2.getPunteggioFratelli()));
 
                             if (resultPrimoConfrontoDaPunteggio == 0) {
-                                return (o1.getNomePersona().compareTo(o2.getNomePersona()));
-                            } else {
+                                resultPrimoConfrontoDaPunteggio = punteggioFratelli;
+
                             }
+
+                            if (resultPrimoConfrontoDaPunteggio == 0 && primaScelta) {
+                                System.out.println("PRIMA SCELTA");
+                                resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntLavoroMadrePrimaScelta(), o2.getPuntLavoroMadrePrimaScelta()));
+                            }
+
+                            if (resultPrimoConfrontoDaPunteggio == 0 && secondaScelta) {
+                                System.out.println("SECONDA SCELTA");
+
+                                resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntLavoroMadreSecondaScelta(), o2.getPuntLavoroMadreSecondaScelta()));
+                            }
+
+                            if (resultPrimoConfrontoDaPunteggio == 0 && primaScelta) {
+                                System.out.println("PRIMA SCELTA");
+                                resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntavoroPadrePrimaScelta(), o2.getPuntavoroPadrePrimaScelta()));
+                            }
+
+                            // MI SALTA
+
+                            if (resultPrimoConfrontoDaPunteggio == 0 && secondaScelta) {
+                                System.out.println("getPuntavoroPadrePrimaScelta == 0");
+                                resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPuntLavoroPadreSecondaScelta(), o2.getPuntLavoroPadreSecondaScelta()));
+                            }
+
+                            if (resultPrimoConfrontoDaPunteggio == 0) {
+                                System.out.println("getPuntLavoroPadreSecondaScelta == 0");
+                                resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPunteggioGravidanza(), o2.getPunteggioGravidanza()));
+                            }
+
+                            if (resultPrimoConfrontoDaPunteggio == 0) {
+                                System.out.println("getPunteggioGravidanza == 0");
+                                resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPunteggioDisabilita(), o2.getPunteggioDisabilita()));
+                            }
+
+                            if (resultPrimoConfrontoDaPunteggio == 0) {
+
+                                DateFormat f = new SimpleDateFormat("dd/mm/yyyy");
+                                Date d1 = f.parse(o1.getDataDiNascita(), new ParsePosition(0));
+                                Date d2 = f.parse(o2.getDataDiNascita(), new ParsePosition(0));
+
+                                System.out.println("getPunteggioDisabilita == 0");
+                                resultPrimoConfrontoDaPunteggio = (d1.compareTo(d2));
+                            }
+
+//                            resultPrimoConfrontoDaPunteggio = (o1.getValue().toString().compareTo(o2.getValue().toString()));
                             return resultPrimoConfrontoDaPunteggio;
                         }
                     });
@@ -561,6 +695,7 @@ public class MainEsecizioScuola {
 
                             } else {
                                 if (listDomandePrimaSceltaAndListDOmandeSecondaSceltaCheNonSonoStatePreseNellaPrimaPulizia.contains(domandaStato.getKey())) {
+                                    System.out.println("PLUTO");
                                     domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
                                     if (domandaStato.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) {
 //                                    listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
