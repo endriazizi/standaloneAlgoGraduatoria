@@ -121,7 +121,7 @@ public class CSVReaderParser {
             case "Gaudiano - Mille colori (7)":
                 primaScelta = listScuole.get(10);
                 break;
-            case "Grillo parlante (3)":
+            case "Grillo parlante (8)":
                 primaScelta = listScuole.get(11);
                 break;
             case "Gulliver di Via Flaminia (28)":
@@ -166,7 +166,7 @@ public class CSVReaderParser {
             case "Poi poi di Via Ferraris (22)":
                 primaScelta = listScuole.get(25);
                 break;
-            case "Specchio magico (1)":
+            case "Specchio magico (17)":
                 primaScelta = listScuole.get(26);
                 break;
             case "Villa San Martino - Via togliatti (54)":
@@ -222,7 +222,7 @@ public class CSVReaderParser {
             case "Gaudiano - Mille colori (7)":
                 secondaScelta = listScuole.get(10);
                 break;
-            case "Grillo parlante (3)":
+            case "Grillo parlante (8)":
                 secondaScelta = listScuole.get(11);
                 break;
             case "Gulliver di Via Flaminia (28)":
@@ -267,7 +267,7 @@ public class CSVReaderParser {
             case "Poi poi di Via Ferraris (22)":
                 secondaScelta = listScuole.get(25);
                 break;
-            case "Specchio magico (1)":
+            case "Specchio magico (17)":
                 secondaScelta = listScuole.get(26);
                 break;
             case "Villa San Martino - Via togliatti (54)":
@@ -389,7 +389,7 @@ public class CSVReaderParser {
         Scuola scuolaMilano8 = new Scuola(8, "G.Galilei Tresei B.go S.Maria ", 33);
         Scuola scuolaMilano9 = new Scuola(9, "G.GalileiPollicino Casebruciate ", 11);
         Scuola scuolaMilano10 = new Scuola(10, "Gaudiano - Mille colori", 7);
-        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 3);
+        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 8);
         Scuola scuolaMilano12 = new Scuola(12, "Gulliver di Via Flaminia", 29);
 //        Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini sez primavera", 18);
         Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini", 18);
@@ -405,7 +405,7 @@ public class CSVReaderParser {
         Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
         Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
         Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
-        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 1);
+        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
         Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
         Scuola scuolaMilano28 = new Scuola(28, "VUOTO", 0);
 
