@@ -350,7 +350,9 @@ public class CSVReaderParser {
             punteggioDisabilita = Integer.parseInt(metadata[12]);
         }
 
+//        https://www.w3resource.com/java-exercises/re/java-re-exercise-10.php
 
+//        String dataDiNascita = validate(metadata[13]);
         String dataDiNascita = metadata[13];
 
         String esito = null;
@@ -367,6 +369,9 @@ public class CSVReaderParser {
                 punteggioGravidanza, punteggioDisabilita, dataDiNascita, esito);
     }
 
+//    public static String validate(String ip) {
+//        return ip.replaceAll("(?<=^|\\.)0+(?!\\.|$)","");
+//    }
 
     private static List<Scuola> initScuole() {
 /*        Scuola scuolaMilano = new Scuola(UUID.randomUUID(), "Milano", 2);
