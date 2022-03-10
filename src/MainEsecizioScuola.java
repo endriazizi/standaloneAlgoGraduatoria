@@ -75,8 +75,8 @@ public class MainEsecizioScuola {
                     List<Domanda> listDomandePrimaScelta = mapDomandaStato.keySet().stream().filter(
                             domanda -> (
                                     (domanda.getPrimaScelta().getIdScuola() == (scuola.getIdScuola()))
-                                            &&
-                                            (domanda.getEsito().getStringaEsitoNelCsv().equals("Pending"))
+//                                            &&
+//                                            (domanda.getEsito().getStringaEsitoNelCsv().equals("Pending"))
 //                                                            (domanda.getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_AMMESSO))
                             )).collect(Collectors.toList());
 
@@ -91,6 +91,20 @@ public class MainEsecizioScuola {
 
 
                     for (Map.Entry<Domanda, EnumStatoDomanda> domandaStato : mapDomandaStato.entrySet()) {
+
+
+//                        boolean contains = listDomandePrimaScelta.contains(domandaStato.getKey());
+//                        boolean contains2 = listDomandaChePerPrimaSceltaRisultanoPassati.contains(domandaStato.getKey());
+//                        String stringaEsitoNelCsv = domandaStato.getKey().getEsito().getStringaEsitoNelCsv();
+//                        String stringaEsitoNelCsv1 = EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv();
+//
+//                        System.out.println("nome "+domandaStato.getKey().getNomePersona());
+//                        System.out.println(scuola.getNomeScuola());
+//                        System.out.println("contains "+contains);
+//                        System.out.println("contains2 "+contains2);
+//                        System.out.println("stringaEsitoNelCsv "+stringaEsitoNelCsv);
+//                        System.out.println("stringaEsitoNelCsv1 "+stringaEsitoNelCsv1);
+
 
                         boolean a = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending");
                         //COTTT
@@ -108,23 +122,19 @@ public class MainEsecizioScuola {
 
                         } else {
                             if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")) {
-                                System.out.println("MINNIE");
-                                boolean c = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending");
-                                System.out.println("PENDRING: " + c);
+//                                System.out.println("PIPPO");
                                 domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
                             }
-                            if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")) {
+                            if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv())) {
 
                                 boolean b = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari");
-                                System.out.println("Lista anticipatari:" + b);
-                                System.out.println("PAPERINO");
+//                                System.out.println("FINALMENTE");
 
                                 domandaStato.setValue(EnumStatoDomanda.NON_AMMESSO_MA_IN_LISTA_ANTICIPATARIO);
 
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
                             } else {
-                                System.out.println("ADELMO");
                                 domandaStato.setValue(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO);
                             }
 
@@ -132,6 +142,7 @@ public class MainEsecizioScuola {
                         }
                     }
                 }); // FINE  listScuole.forEach - Risposta di tutte le prime scelte
+        // HEAD FINE
 
         do {
             algoritmoDiCalcoloScelteGraduatorie(listScuole, listDomande, listSecondaSceltaPerchePrimaSceltaNonPassate);
@@ -693,7 +704,7 @@ public class MainEsecizioScuola {
 
                         } else {
                             if (listDomandeAmmessi.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")) {
-                                System.out.println("PIPPO");
+//                                System.out.println("PIPPO");
                                 domandaStato.setValue(EnumStatoDomanda.NON_AMMESSO_MA_IN_LISTA_ANTICIPATARIO);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
 
