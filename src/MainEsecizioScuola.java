@@ -75,8 +75,8 @@ public class MainEsecizioScuola {
                     List<Domanda> listDomandePrimaScelta = mapDomandaStato.keySet().stream().filter(
                             domanda -> (
                                     (domanda.getPrimaScelta().getIdScuola() == (scuola.getIdScuola()))
-                                            &&
-                                            (domanda.getEsito().getStringaEsitoNelCsv().equals("Pending"))
+//                                            &&
+//                                            (domanda.getEsito().getStringaEsitoNelCsv().equals("Pending"))
 //                                                            (domanda.getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_AMMESSO))
                             )).collect(Collectors.toList());
 
@@ -91,6 +91,18 @@ public class MainEsecizioScuola {
 
 
                     for (Map.Entry<Domanda, EnumStatoDomanda> domandaStato : mapDomandaStato.entrySet()) {
+
+                        boolean contains = listDomandePrimaScelta.contains(domandaStato.getKey());
+                        boolean contains2 = listDomandaChePerPrimaSceltaRisultanoPassati.contains(domandaStato.getKey());
+                        String stringaEsitoNelCsv = domandaStato.getKey().getEsito().getStringaEsitoNelCsv();
+                        String stringaEsitoNelCsv1 = EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv();
+
+                        System.out.println("nome "+domandaStato.getKey().getNomePersona());
+                        System.out.println(scuola.getNomeScuola());
+                        System.out.println("contains "+contains);
+                        System.out.println("contains2 "+contains2);
+                        System.out.println("stringaEsitoNelCsv "+stringaEsitoNelCsv);
+                        System.out.println("stringaEsitoNelCsv1 "+stringaEsitoNelCsv1);
 
                         boolean a = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending");
                         //COTTT
@@ -108,23 +120,23 @@ public class MainEsecizioScuola {
 
                         } else {
                             if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")) {
-
+                                System.out.println("PIPPO");
                                 domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
-                            } else {
-                                if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")) {
-
-                                    boolean b = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari");
-                                    //System.out.println(b);
-
-                                    domandaStato.setValue(EnumStatoDomanda.NON_AMMESSO_MA_IN_LISTA_ANTICIPATARIO);
-
-                                    listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
-                                } else {
-                                    domandaStato.setValue(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO);
-                                }
-
                             }
+                            if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv())) {
+
+                                boolean b = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari");
+                                System.out.println("FINALMENTE");
+
+                                domandaStato.setValue(EnumStatoDomanda.NON_AMMESSO_MA_IN_LISTA_ANTICIPATARIO);
+
+                                listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
+                            } else {
+                                domandaStato.setValue(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO);
+                            }
+
+
                         }
                     }
                 }); // FINE  listScuole.forEach - Risposta di tutte le prime scelte
@@ -145,7 +157,6 @@ public class MainEsecizioScuola {
                         o2.getKey().getPunteggioPrimaScelta() : o2.getKey().getPunteggioSecondaScelta())));
 
 
-
                 //resultPrimoConfrontoDaPunteggio = (o1.getKey().getEsito().equals(o2.getKey().getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getKey().getEsito().getPeso().compareTo(o2.getKey().getEsito().getPeso()));
 
 
@@ -164,7 +175,6 @@ public class MainEsecizioScuola {
                 // o1 = anticipatario // anticipatario
                 // o2 = anticipatario // anticipatario
                 // ammesso > anticipatario
-
 
 
                 boolean secondaScelta = (o1.getKey().getSecondaScelta().getIdScuola() == (scuola.getIdScuola())
@@ -455,7 +465,6 @@ public class MainEsecizioScuola {
                 ));
 
 
-
                 int punteggioFratelli = -(Integer.compare(o1.getPunteggioFratelli(), o2.getPunteggioFratelli()));
 
                 if (resultPrimoConfrontoDaPunteggio == 0) {
@@ -487,7 +496,7 @@ public class MainEsecizioScuola {
                 }
 
                 if (resultPrimoConfrontoDaPunteggio == 0) {
-          ;
+                    ;
                     resultPrimoConfrontoDaPunteggio = -(Integer.compare(o1.getPunteggioGravidanza(), o2.getPunteggioGravidanza()));
                 }
 
@@ -511,7 +520,7 @@ public class MainEsecizioScuola {
                  *  resultPrimoConfrontoDaPunteggio = (o1.equals(o2.getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getEsito().getPeso().compareTo(o2.getEsito().getPeso()));
                  */
 
-              //  resultPrimoConfrontoDaPunteggio = (o1.getValue().toString().compareTo(o2.getValue().toString()));
+                //  resultPrimoConfrontoDaPunteggio = (o1.getValue().toString().compareTo(o2.getValue().toString()));
 
 
                 return resultPrimoConfrontoDaPunteggio;
@@ -598,7 +607,7 @@ public class MainEsecizioScuola {
                             // ammesso > anticipatario
 
 
-                         //   resultPrimoConfrontoDaPunteggio = (o1.getEsito().equals(o2.getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getEsito().getPeso().compareTo(o2.getEsito().getPeso()));
+                            //   resultPrimoConfrontoDaPunteggio = (o1.getEsito().equals(o2.getEsito())) ? resultPrimoConfrontoDaPunteggio : -(o1.getEsito().getPeso().compareTo(o2.getEsito().getPeso()));
 
 
 //                            if (resultPrimoConfrontoDaPunteggio == 0) {
