@@ -75,9 +75,11 @@ public class MainEsecizioScuola {
                     List<Domanda> listDomandePrimaScelta = mapDomandaStato.keySet().stream().filter(
                             domanda -> (
                                     (domanda.getPrimaScelta().getIdScuola() == (scuola.getIdScuola()))
+                                    //HEAD INIZIO
 //                                            &&
 //                                            (domanda.getEsito().getStringaEsitoNelCsv().equals("Pending"))
 //                                                            (domanda.getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_AMMESSO))
+                                    //HEAD FINE
                             )).collect(Collectors.toList());
 
 
@@ -91,7 +93,7 @@ public class MainEsecizioScuola {
 
 
                     for (Map.Entry<Domanda, EnumStatoDomanda> domandaStato : mapDomandaStato.entrySet()) {
-
+//HEAD INIZIO
                         boolean contains = listDomandePrimaScelta.contains(domandaStato.getKey());
                         boolean contains2 = listDomandaChePerPrimaSceltaRisultanoPassati.contains(domandaStato.getKey());
                         String stringaEsitoNelCsv = domandaStato.getKey().getEsito().getStringaEsitoNelCsv();
@@ -103,7 +105,7 @@ public class MainEsecizioScuola {
                         System.out.println("contains2 "+contains2);
                         System.out.println("stringaEsitoNelCsv "+stringaEsitoNelCsv);
                         System.out.println("stringaEsitoNelCsv1 "+stringaEsitoNelCsv1);
-
+//HEAD FINE
                         boolean a = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending");
                         //COTTT
                         if (domandaStato.getKey().getPrimaScelta().getNomeScuola().equals("La Grande quercia di Via Leoncavallo")) {
@@ -117,7 +119,7 @@ public class MainEsecizioScuola {
                                 && domandaStato.getKey().getPunteggioSecondaScelta() > 0
                         ) {
                             domandaStato.setValue(EnumStatoDomanda.AMMESSO);
-
+//HEAD INIZIO
                         } else {
                             if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")) {
                                 System.out.println("PIPPO");
@@ -140,6 +142,7 @@ public class MainEsecizioScuola {
                         }
                     }
                 }); // FINE  listScuole.forEach - Risposta di tutte le prime scelte
+        // HEAD FINE
 
         do {
             algoritmoDiCalcoloScelteGraduatorie(listScuole, listDomande, listSecondaSceltaPerchePrimaSceltaNonPassate);
