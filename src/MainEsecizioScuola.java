@@ -686,28 +686,33 @@ public class MainEsecizioScuola {
 
                     List<Domanda> listDomandeAmmessi = listDomandePrimaSceltaAndListDOmandeSecondaSceltaCheNonSonoStatePreseNellaPrimaPulizia.subList(0, (listDomandePrimaSceltaAndListDOmandeSecondaSceltaCheNonSonoStatePreseNellaPrimaPulizia.size() < postiDisp) ? listDomandePrimaSceltaAndListDOmandeSecondaSceltaCheNonSonoStatePreseNellaPrimaPulizia.size() : postiDisp);
 
+
+//QUI UI INIZIO
+                    // SECONDE SCELTE
                     for (Map.Entry<Domanda, EnumStatoDomanda> domandaStato : mapDomandaStato.entrySet()) {
 
                         if (domandaStato.getKey().getNomePersona().equals("IANZANO EMILY")) {
 //                            System.out.println("DAJEE" + scuola.getNomeScuola());
                         }
-                        //QUI
-                        if (listDomandeAmmessi.contains(domandaStato.getKey())
-                                && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")
-                                && domandaStato.getKey().getPunteggioSecondaScelta() > 0
-                        ) {
 
+                        if (listDomandeAmmessi.contains(domandaStato.getKey())
+                                //&& domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")
+                                && domandaStato.getKey().getPunteggioSecondaScelta() > 0
+                                && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Pending")
+                        ) {
+                            System.out.println("TOPOLINO");
                             domandaStato.setValue(EnumStatoDomanda.AMMESSO);
                             listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
 
                         } else {
-                            if (listDomandeAmmessi.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")) {
+                            if (listDomandeAmmessi.contains(domandaStato.getKey()) || domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")) {
+                                System.out.println("PAPERINO");
                                 domandaStato.setValue(EnumStatoDomanda.NON_AMMESSO_MA_IN_LISTA_ANTICIPATARIO);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
 
                             } else {
                                 if (listDomandePrimaSceltaAndListDOmandeSecondaSceltaCheNonSonoStatePreseNellaPrimaPulizia.contains(domandaStato.getKey())) {
-
+                                    System.out.println("PLUTO");
                                     domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
                                     if (domandaStato.getKey().getPrimaScelta().getIdScuola() == (scuola.getIdScuola())) {
 //                                    listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
@@ -717,6 +722,7 @@ public class MainEsecizioScuola {
                                     }
 
                                 }
+
                             }
 //                            if(domandaStato.getValue().equals(EnumStatoDomanda.LISTA_DI_ATTESA)){
 //                                domandaStato.setValue(EnumStatoDomanda.GIA_PRESO_IN_UN_ALTRO_ISTITUTO);
@@ -724,6 +730,7 @@ public class MainEsecizioScuola {
 
                         }
                     }
+                    //QUI UI FINE
 
 
                     /*System.out.println("FINE SECONDI GIRO");
