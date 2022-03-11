@@ -126,7 +126,12 @@ public class MainEsecizioScuola {
                                 domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
                             }
-                            if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv())) {
+                            //PIPPOINIZIO
+                            if (listDomandePrimaScelta.contains(domandaStato.getKey())
+                                    && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv())
+
+                            ) {
+                                //PIPPO FINE
 
                                 boolean b = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari");
                                 System.out.println("FINALMENTE");
@@ -703,14 +708,26 @@ public class MainEsecizioScuola {
                             System.out.println("TOPOLINO");
                             domandaStato.setValue(EnumStatoDomanda.AMMESSO);
                             listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
-
+//PIPPOINIZIO
                         } else {
-                            if (listDomandeAmmessi.contains(domandaStato.getKey()) || domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")) {
+                            if (listDomandeAmmessi.contains(domandaStato.getKey()) || domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")
+                                    && domandaStato.getKey().getPunteggioSecondaScelta() > 0
+                            ) {
                                 System.out.println("PAPERINO");
                                 domandaStato.setValue(EnumStatoDomanda.NON_AMMESSO_MA_IN_LISTA_ANTICIPATARIO);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
 
-                            } else {
+                            }
+                            if (listDomandeAmmessi.contains(domandaStato.getKey()) || domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")
+                                    && domandaStato.getKey().getPunteggioSecondaScelta() < 0
+                            ) {
+                                System.out.println("PAPERINO");
+                                domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
+                                listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
+
+                            }
+                            //PIPPOFINE
+                            else {
                                 if (listDomandePrimaSceltaAndListDOmandeSecondaSceltaCheNonSonoStatePreseNellaPrimaPulizia.contains(domandaStato.getKey())) {
                                     System.out.println("PLUTO");
                                     domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
