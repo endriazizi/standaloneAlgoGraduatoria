@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -7,9 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class CSVReaderParser {
+public class CSVReaderParserBACKUP {
 
     public static List<Domanda> parser() {
 
@@ -86,96 +84,92 @@ public class CSVReaderParser {
 
         Scuola primaScelta;
         switch (metadata[2]) {
-            case "Albero Azzurro (8)":
+            case "Alighieri - Skarabocchio (40)":
                 primaScelta = listScuole.get(0);
                 break;
-            case "Alberone (8)":
+            case "Ambaraba' (15)":
                 primaScelta = listScuole.get(1);
                 break;
-            case "Aquilone (12)":
+            case "Cappuccetto rosso (9)":
                 primaScelta = listScuole.get(2);
                 break;
 
-            case "Arcobaleno (8)":
+            case "D.Alighieri Il Giardino delle Meraviglie  Vismara (35)":
                 primaScelta = listScuole.get(3);
                 break;
-            case "Cucciolo (10)":
+            case "D.Alighieri Mongolfiera S.Maria Fabbrecce  (23)":
                 primaScelta = listScuole.get(4);
                 break;
-            case "Filippini (8)":
+            case "Filo rosso (21)":
                 primaScelta = listScuole.get(5);
                 break;
 
-            case "Girotondo (8)":
+            case "G. Galilei - Alice (23)":
                 primaScelta = listScuole.get(6);
                 break;
-            case "Lilliput (8)":
+            case "G. Galilei - Il bosco incantato (23)":
                 primaScelta = listScuole.get(7);
                 break;
-            case "L'incontrario (7)":
+            case "G.Galilei Tresei B.go S.Maria  (33)":
                 primaScelta = listScuole.get(8);
                 break;
-            case "Macondo (12)":
+            case "G.GalileiPollicino Casebruciate  (11)":
                 primaScelta = listScuole.get(9);
                 break;
-
-            case "Mondogaio (12)":
+            case "Gaudiano - Mille colori (7)":
                 primaScelta = listScuole.get(10);
                 break;
-            case "Millestorie (4)":
+            case "Grillo parlante (8)":
                 primaScelta = listScuole.get(11);
                 break;
-            case "Nuvole di cotone (5)":
+            case "Gulliver di Via Flaminia (28)":
                 primaScelta = listScuole.get(12);
                 break;
-//            case "Gulliver di Via Flaminia (28)":
-//                primaScelta = listScuole.get(12);
-//                break;
-//            case "I Tre giardini  (18)":
-//                primaScelta = listScuole.get(13);
-//                break;
-//            case "Il Giardino fantastico di Via Madonna di Loreto (8)":
-//                primaScelta = listScuole.get(14);
-//                break;
-//            case "La giostra (28)":
-//                primaScelta = listScuole.get(15);
-//                break;
-//            case "La Grande quercia di Via Leoncavallo (31)":
-//                primaScelta = listScuole.get(16);
-//                break;
-//            case "Leopardi - Via Bonali (22)":
-//                primaScelta = listScuole.get(17);
-//                break;
-//            case "Leopardi - Via Fermi (22)":
-//                primaScelta = listScuole.get(18);
-//                break;
-//            case "Mary poppins di Colombarone (11)":
-//                primaScelta = listScuole.get(19);
-//                break;
-//            case "Olivieri - Glicine (37)":
-//                primaScelta = listScuole.get(20);
-//                break;
-//            case "Peter pan di Via Livorno (19)":
-//                primaScelta = listScuole.get(21);
-//                break;
-//            case "Pirandello - Dire fare... (10)":
-//                primaScelta = listScuole.get(22);
-//                break;
-//            case "Pirandello - Milleluci (11)":
-//                primaScelta = listScuole.get(23);
-//                break;
-//            case "Pirandello - Prato fiorito (18)":
-//                primaScelta = listScuole.get(24);
-//                break;
-//            case "Poi poi di Via Ferraris (22)":
-//                primaScelta = listScuole.get(25);
-//                break;
-//            case "Specchio magico (17)":
-//                primaScelta = listScuole.get(26);
-//                break;
-//            case "Villa San Martino - Via togliatti (54)":
-//                primaScelta = listScuole.get(27);
-//                break;
+            case "I Tre giardini  (18)":
+                primaScelta = listScuole.get(13);
+                break;
+            case "Il Giardino fantastico di Via Madonna di Loreto (8)":
+                primaScelta = listScuole.get(14);
+                break;
+            case "La giostra (28)":
+                primaScelta = listScuole.get(15);
+                break;
+            case "La Grande quercia di Via Leoncavallo (31)":
+                primaScelta = listScuole.get(16);
+                break;
+            case "Leopardi - Via Bonali (22)":
+                primaScelta = listScuole.get(17);
+                break;
+            case "Leopardi - Via Fermi (22)":
+                primaScelta = listScuole.get(18);
+                break;
+            case "Mary poppins di Colombarone (11)":
+                primaScelta = listScuole.get(19);
+                break;
+            case "Olivieri - Glicine (37)":
+                primaScelta = listScuole.get(20);
+                break;
+            case "Peter pan di Via Livorno (19)":
+                primaScelta = listScuole.get(21);
+                break;
+            case "Pirandello - Dire fare... (10)":
+                primaScelta = listScuole.get(22);
+                break;
+            case "Pirandello - Milleluci (11)":
+                primaScelta = listScuole.get(23);
+                break;
+            case "Pirandello - Prato fiorito (18)":
+                primaScelta = listScuole.get(24);
+                break;
+            case "Poi poi di Via Ferraris (22)":
+                primaScelta = listScuole.get(25);
+                break;
+            case "Specchio magico (17)":
+                primaScelta = listScuole.get(26);
+                break;
+            case "Villa San Martino - Via togliatti (54)":
+                primaScelta = listScuole.get(27);
+                break;
             case "()":
                 primaScelta = listScuole.get(28);
                 break;
@@ -191,96 +185,92 @@ public class CSVReaderParser {
 
         Scuola secondaScelta;
         switch (metadata[3]) {
-            case "Albero Azzurro (8)":
+            case "Alighieri - Skarabocchio (40)":
                 secondaScelta = listScuole.get(0);
                 break;
-            case "Alberone (8)":
+            case "Ambaraba' (15)":
                 secondaScelta = listScuole.get(1);
                 break;
-            case "Aquilone (12)":
+            case "Cappuccetto rosso (9)":
                 secondaScelta = listScuole.get(2);
                 break;
 
-            case "Arcobaleno (8)":
+            case "D.Alighieri Il Giardino delle Meraviglie  Vismara (35)":
                 secondaScelta = listScuole.get(3);
                 break;
-            case "Cucciolo (10)":
+            case "D.Alighieri Mongolfiera S.Maria Fabbrecce  (23)":
                 secondaScelta = listScuole.get(4);
                 break;
-            case "Filippini (8)":
+            case "Filo rosso (21)":
                 secondaScelta = listScuole.get(5);
                 break;
 
-            case "Girotondo (8)":
+            case "G. Galilei - Alice (23)":
                 secondaScelta = listScuole.get(6);
                 break;
-            case "Lilliput (8)":
+            case "G. Galilei - Il bosco incantato (23)":
                 secondaScelta = listScuole.get(7);
                 break;
-            case "L'incontrario (7)":
+            case "G.Galilei Tresei B.go S.Maria  (33)":
                 secondaScelta = listScuole.get(8);
                 break;
-            case "Macondo (12)":
+            case "G.GalileiPollicino Casebruciate  (11)":
                 secondaScelta = listScuole.get(9);
                 break;
-
-            case "Mondogaio (12)":
+            case "Gaudiano - Mille colori (7)":
                 secondaScelta = listScuole.get(10);
                 break;
-            case "Millestorie (4)":
+            case "Grillo parlante (8)":
                 secondaScelta = listScuole.get(11);
                 break;
-            case "Nuvole di cotone (5)":
+            case "Gulliver di Via Flaminia (28)":
                 secondaScelta = listScuole.get(12);
                 break;
-//            case "Gulliver di Via Flaminia (28)":
-//                primaScelta = listScuole.get(12);
-//                break;
-//            case "I Tre giardini  (18)":
-//                primaScelta = listScuole.get(13);
-//                break;
-//            case "Il Giardino fantastico di Via Madonna di Loreto (8)":
-//                primaScelta = listScuole.get(14);
-//                break;
-//            case "La giostra (28)":
-//                primaScelta = listScuole.get(15);
-//                break;
-//            case "La Grande quercia di Via Leoncavallo (31)":
-//                primaScelta = listScuole.get(16);
-//                break;
-//            case "Leopardi - Via Bonali (22)":
-//                primaScelta = listScuole.get(17);
-//                break;
-//            case "Leopardi - Via Fermi (22)":
-//                primaScelta = listScuole.get(18);
-//                break;
-//            case "Mary poppins di Colombarone (11)":
-//                primaScelta = listScuole.get(19);
-//                break;
-//            case "Olivieri - Glicine (37)":
-//                primaScelta = listScuole.get(20);
-//                break;
-//            case "Peter pan di Via Livorno (19)":
-//                primaScelta = listScuole.get(21);
-//                break;
-//            case "Pirandello - Dire fare... (10)":
-//                primaScelta = listScuole.get(22);
-//                break;
-//            case "Pirandello - Milleluci (11)":
-//                primaScelta = listScuole.get(23);
-//                break;
-//            case "Pirandello - Prato fiorito (18)":
-//                primaScelta = listScuole.get(24);
-//                break;
-//            case "Poi poi di Via Ferraris (22)":
-//                primaScelta = listScuole.get(25);
-//                break;
-//            case "Specchio magico (17)":
-//                primaScelta = listScuole.get(26);
-//                break;
-//            case "Villa San Martino - Via togliatti (54)":
-//                primaScelta = listScuole.get(27);
-//                break;
+            case "I Tre giardini  (18)":
+                secondaScelta = listScuole.get(13);
+                break;
+            case "Il Giardino fantastico di Via Madonna di Loreto (8)":
+                secondaScelta = listScuole.get(14);
+                break;
+            case "La giostra (28)":
+                secondaScelta = listScuole.get(15);
+                break;
+            case "La Grande quercia di Via Leoncavallo (31)":
+                secondaScelta = listScuole.get(16);
+                break;
+            case "Leopardi - Via Bonali (22)":
+                secondaScelta = listScuole.get(17);
+                break;
+            case "Leopardi - Via Fermi (22)":
+                secondaScelta = listScuole.get(18);
+                break;
+            case "Mary poppins di Colombarone (11)":
+                secondaScelta = listScuole.get(19);
+                break;
+            case "Olivieri - Glicine (37)":
+                secondaScelta = listScuole.get(20);
+                break;
+            case "Peter pan di Via Livorno (19)":
+                secondaScelta = listScuole.get(21);
+                break;
+            case "Pirandello - Dire fare... (10)":
+                secondaScelta = listScuole.get(22);
+                break;
+            case "Pirandello - Milleluci (11)":
+                secondaScelta = listScuole.get(23);
+                break;
+            case "Pirandello - Prato fiorito (18)":
+                secondaScelta = listScuole.get(24);
+                break;
+            case "Poi poi di Via Ferraris (22)":
+                secondaScelta = listScuole.get(25);
+                break;
+            case "Specchio magico (17)":
+                secondaScelta = listScuole.get(26);
+                break;
+            case "Villa San Martino - Via togliatti (54)":
+                secondaScelta = listScuole.get(27);
+                break;
             case "()":
                 secondaScelta = listScuole.get(28);
                 break;

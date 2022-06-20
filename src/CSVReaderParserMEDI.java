@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -7,9 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class CSVReaderParser {
+public class CSVReaderParserMEDI {
 
     public static List<Domanda> parser() {
 
@@ -86,17 +84,17 @@ public class CSVReaderParser {
 
         Scuola primaScelta;
         switch (metadata[2]) {
-            case "Albero Azzurro (8)":
+            case "Albero Azzurro (6)":
                 primaScelta = listScuole.get(0);
                 break;
-            case "Alberone (8)":
+            case "Alberone (5)":
                 primaScelta = listScuole.get(1);
                 break;
-            case "Aquilone (12)":
+            case "Aquilone (8)":
                 primaScelta = listScuole.get(2);
                 break;
 
-            case "Arcobaleno (8)":
+            case "Arcobaleno (5)":
                 primaScelta = listScuole.get(3);
                 break;
             case "Cucciolo (10)":
@@ -106,23 +104,22 @@ public class CSVReaderParser {
                 primaScelta = listScuole.get(5);
                 break;
 
-            case "Girotondo (8)":
+            case "Girotondo (6)":
                 primaScelta = listScuole.get(6);
                 break;
-            case "Lilliput (8)":
+            case "Lilliput (5)":
                 primaScelta = listScuole.get(7);
                 break;
             case "L'incontrario (7)":
                 primaScelta = listScuole.get(8);
                 break;
-            case "Macondo (12)":
+            case "Macondo (4)":
                 primaScelta = listScuole.get(9);
                 break;
-
-            case "Mondogaio (12)":
+            case "Millestorie (4)":
                 primaScelta = listScuole.get(10);
                 break;
-            case "Millestorie (4)":
+            case "Mondogaio (7)":
                 primaScelta = listScuole.get(11);
                 break;
             case "Nuvole di cotone (5)":
@@ -191,17 +188,17 @@ public class CSVReaderParser {
 
         Scuola secondaScelta;
         switch (metadata[3]) {
-            case "Albero Azzurro (8)":
+            case "Albero Azzurro (6)":
                 secondaScelta = listScuole.get(0);
                 break;
-            case "Alberone (8)":
+            case "Alberone (5)":
                 secondaScelta = listScuole.get(1);
                 break;
-            case "Aquilone (12)":
+            case "Aquilone (8)":
                 secondaScelta = listScuole.get(2);
                 break;
 
-            case "Arcobaleno (8)":
+            case "Arcobaleno (5)":
                 secondaScelta = listScuole.get(3);
                 break;
             case "Cucciolo (10)":
@@ -211,23 +208,22 @@ public class CSVReaderParser {
                 secondaScelta = listScuole.get(5);
                 break;
 
-            case "Girotondo (8)":
+            case "Girotondo (6)":
                 secondaScelta = listScuole.get(6);
                 break;
-            case "Lilliput (8)":
+            case "Lilliput (5)":
                 secondaScelta = listScuole.get(7);
                 break;
             case "L'incontrario (7)":
                 secondaScelta = listScuole.get(8);
                 break;
-            case "Macondo (12)":
+            case "Macondo (4)":
                 secondaScelta = listScuole.get(9);
                 break;
-
-            case "Mondogaio (12)":
+            case "Millestorie (4)":
                 secondaScelta = listScuole.get(10);
                 break;
-            case "Millestorie (4)":
+            case "Mondogaio (7)":
                 secondaScelta = listScuole.get(11);
                 break;
             case "Nuvole di cotone (5)":

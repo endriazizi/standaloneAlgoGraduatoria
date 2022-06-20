@@ -126,8 +126,12 @@ public class MainEsecizioScuola {
                                 domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.add(domandaStato.getKey().getIdDomanda());
                             }
-                            if (listDomandePrimaScelta.contains(domandaStato.getKey()) && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv())) {
+                            //PIPPOINIZIO
+                            if (listDomandePrimaScelta.contains(domandaStato.getKey())
+                                    && domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals(EnumEsitoDomanda.ESITO_LISTA_ANTICIPATARIO.getStringaEsitoNelCsv())
 
+                            ) {
+                                //PIPPO FINE
                                 boolean b = domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari");
 //                                System.out.println("FINALMENTE");
 
@@ -388,7 +392,7 @@ public class MainEsecizioScuola {
                     listDomande.forEach(domanda -> {
 
                         if (domanda.getPrimaScelta().getIdScuola() == (domanda.getSecondaScelta().getIdScuola())) {
-                            domanda.setSecondaScelta(listScuole.get(29));//UNDEFINED???
+                            domanda.setSecondaScelta(listScuole.get(14));//UNDEFINED???
                         }
 
                         Domanda domandaToInsert = new Domanda(domanda);
@@ -704,13 +708,26 @@ public class MainEsecizioScuola {
                             domandaStato.setValue(EnumStatoDomanda.AMMESSO);
                             listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
 
+//PIPPOINIZIO
                         } else {
-                            if (listDomandeAmmessi.contains(domandaStato.getKey()) || domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")) {
-//                                System.out.println("PAPERINO");
+                            if (listDomandeAmmessi.contains(domandaStato.getKey()) || domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")
+                                    && domandaStato.getKey().getPunteggioSecondaScelta() > 0
+                            ) {
+                                System.out.println("PAPERINO");
                                 domandaStato.setValue(EnumStatoDomanda.NON_AMMESSO_MA_IN_LISTA_ANTICIPATARIO);
                                 listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
 
-                            } else {
+                            }
+                            if (listDomandeAmmessi.contains(domandaStato.getKey()) || domandaStato.getKey().getEsito().getStringaEsitoNelCsv().equals("Lista anticipatari")
+                                    && domandaStato.getKey().getPunteggioSecondaScelta() < 0
+                            ) {
+                                System.out.println("PAPERINO");
+                                domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
+                                listSecondaSceltaPerchePrimaSceltaNonPassate.remove(domandaStato.getKey().getIdDomanda());
+
+                            }
+                            //PIPPOFINE
+                            else {
                                 if (listDomandePrimaSceltaAndListDOmandeSecondaSceltaCheNonSonoStatePreseNellaPrimaPulizia.contains(domandaStato.getKey())) {
 //                                    System.out.println("PLUTO");
                                     domandaStato.setValue(EnumStatoDomanda.LISTA_DI_ATTESA);
@@ -750,36 +767,87 @@ public class MainEsecizioScuola {
 //        Scuola scuolaTorino = new Scuola(UUID.randomUUID(),"Torino", 2);
 //        Scuola scuolaVenezia = new Scuola(UUID.randomUUID(), "Venezia",1);
 
-        Scuola scuolaMilano0 = new Scuola(0, "Alighieri - Skarabocchio", 40);
-        Scuola scuolaMilano1 = new Scuola(1, "Ambaraba'", 15);
-        Scuola scuolaMilano2 = new Scuola(2, "Cappuccetto rosso", 9);
-        Scuola scuolaMilano3 = new Scuola(3, "D.Alighieri Il Giardino delle Meraviglie  Vismara", 35);
-        Scuola scuolaMilano4 = new Scuola(4, "D.Alighieri Mongolfiera S.Maria Fabbrecce ", 23);
-        Scuola scuolaMilano5 = new Scuola(5, "Filo rosso", 21);
-        Scuola scuolaMilano6 = new Scuola(6, "G. Galilei - Alice", 23);
-        Scuola scuolaMilano7 = new Scuola(7, "G. Galilei - Il bosco incantato", 23);
-        Scuola scuolaMilano8 = new Scuola(8, "G.Galilei Tresei B.go S.Maria ", 33);
-        Scuola scuolaMilano9 = new Scuola(9, "G.GalileiPollicino Casebruciate ", 11);
-        Scuola scuolaMilano10 = new Scuola(10, "Gaudiano - Mille colori", 7);
-        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 8);
-        Scuola scuolaMilano12 = new Scuola(12, "Gulliver di Via Flaminia", 28);
-        Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini sez primavera", 18);
-        Scuola scuolaMilano14 = new Scuola(14, "Il Giardino fantastico di Via Madonna di Loreto", 8);
-        Scuola scuolaMilano15 = new Scuola(15, "La giostra", 28);
-        Scuola scuolaMilano16 = new Scuola(16, "La Grande quercia di Via Leoncavallo", 31);
-        Scuola scuolaMilano17 = new Scuola(17, "Leopardi - Via Bonali", 22);
-        Scuola scuolaMilano18 = new Scuola(18, "Leopardi - Via Fermi", 22);
-        Scuola scuolaMilano19 = new Scuola(19, "Mary poppins di Colombarone", 11);
-        Scuola scuolaMilano20 = new Scuola(20, "Olivieri - Glicine", 37);
-        Scuola scuolaMilano21 = new Scuola(21, "Peter pan di Via Livorno", 19);
-        Scuola scuolaMilano22 = new Scuola(22, "Pirandello - Dire fare...", 10);
-        Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
-        Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
-        Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
-        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
-        Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
+//        Scuola scuolaMilano0 = new Scuola(0, "Alighieri - Skarabocchio", 40);
+//        Scuola scuolaMilano1 = new Scuola(1, "Ambaraba'", 15);
+//        Scuola scuolaMilano2 = new Scuola(2, "Cappuccetto rosso", 9);
+//        Scuola scuolaMilano3 = new Scuola(3, "D.Alighieri Il Giardino delle Meraviglie  Vismara", 35);
+//        Scuola scuolaMilano4 = new Scuola(4, "D.Alighieri Mongolfiera S.Maria Fabbrecce ", 23);
+//        Scuola scuolaMilano5 = new Scuola(5, "Filo rosso", 21);
+//        Scuola scuolaMilano6 = new Scuola(6, "G. Galilei - Alice", 23);
+//        Scuola scuolaMilano7 = new Scuola(7, "G. Galilei - Il bosco incantato", 23);
+//        Scuola scuolaMilano8 = new Scuola(8, "G.Galilei Tresei B.go S.Maria ", 33);
+//        Scuola scuolaMilano9 = new Scuola(9, "G.GalileiPollicino Casebruciate ", 11);
+//        Scuola scuolaMilano10 = new Scuola(10, "Gaudiano - Mille colori", 7);
+//        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 8);
+//        Scuola scuolaMilano12 = new Scuola(12, "Gulliver di Via Flaminia", 28);
+//        Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini sez primavera", 18);
+//        Scuola scuolaMilano14 = new Scuola(14, "Il Giardino fantastico di Via Madonna di Loreto", 8);
+//        Scuola scuolaMilano15 = new Scuola(15, "La giostra", 28);
+//        Scuola scuolaMilano16 = new Scuola(16, "La Grande quercia di Via Leoncavallo", 31);
+//        Scuola scuolaMilano17 = new Scuola(17, "Leopardi - Via Bonali", 22);
+//        Scuola scuolaMilano18 = new Scuola(18, "Leopardi - Via Fermi", 22);
+//        Scuola scuolaMilano19 = new Scuola(19, "Mary poppins di Colombarone", 11);
+//        Scuola scuolaMilano20 = new Scuola(20, "Olivieri - Glicine", 37);
+//        Scuola scuolaMilano21 = new Scuola(21, "Peter pan di Via Livorno", 19);
+//        Scuola scuolaMilano22 = new Scuola(22, "Pirandello - Dire fare...", 10);
+//        Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
+//        Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
+//        Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
+//        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
+//        Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
+//        Scuola scuolaMilano28 = new Scuola(28, "VUOTO", 0);
+//        Scuola scuolaMilano29 = new Scuola(29, "UNDEFINED", 0);
+
+
+
+
+//        Scuola scuolaMilano0 = new Scuola(0, "Albero Azzurro", 6);
+//        Scuola scuolaMilano1 = new Scuola(1, "Alberone'", 5);
+//        Scuola scuolaMilano2 = new Scuola(2, "Aquilone", 8);
+//        Scuola scuolaMilano3 = new Scuola(3, "Arcobaleno", 5);
+//        Scuola scuolaMilano4 = new Scuola(4, "Cucciolo", 10);
+//        Scuola scuolaMilano5 = new Scuola(5, "Filippini", 8);
+//        Scuola scuolaMilano6 = new Scuola(6, "Girotondo", 6);
+//        Scuola scuolaMilano7 = new Scuola(7, "Lilliput", 5);
+//        Scuola scuolaMilano8 = new Scuola(8, "L'incontrario", 7);
+//        Scuola scuolaMilano9 = new Scuola(9, "Macondo", 4);
+//        Scuola scuolaMilano10 = new Scuola(10, "Mondogaio ", 7);
+//        Scuola scuolaMilano11 = new Scuola(11, "Millestorie ", 4);
+//        Scuola scuolaMilano12 = new Scuola(12, "Nuvole di cotone", 5);
+
+        Scuola scuolaMilano0 = new Scuola(0, "Albero Azzurro", 8);
+        Scuola scuolaMilano1 = new Scuola(1, "Alberone'", 8);
+        Scuola scuolaMilano2 = new Scuola(2, "Aquilone", 12);
+        Scuola scuolaMilano3 = new Scuola(3, "Arcobaleno", 8);
+        Scuola scuolaMilano4 = new Scuola(4, "Cucciolo", 10);
+        Scuola scuolaMilano5 = new Scuola(5, "Filippini", 8);
+        Scuola scuolaMilano6 = new Scuola(6, "Girotondo", 6);
+        Scuola scuolaMilano7 = new Scuola(7, "Lilliput", 8);
+        Scuola scuolaMilano8 = new Scuola(8, "L'incontrario", 7);
+        Scuola scuolaMilano9 = new Scuola(9, "Macondo", 12);
+        Scuola scuolaMilano10 = new Scuola(10, "Mondogaio ", 12);
+        Scuola scuolaMilano11 = new Scuola(11, "Millestorie ", 4);
+        Scuola scuolaMilano12 = new Scuola(12, "Nuvole di cotone", 5);
+//        Scuola scuolaMilano11 = new Scuola(11, "Grillo parlante", 8);
+//        Scuola scuolaMilano12 = new Scuola(12, "Gulliver di Via Flaminia", 28);
+//        Scuola scuolaMilano13 = new Scuola(13, "I Tre giardini sez primavera", 18);
+//        Scuola scuolaMilano14 = new Scuola(14, "Il Giardino fantastico di Via Madonna di Loreto", 8);
+//        Scuola scuolaMilano15 = new Scuola(15, "La giostra", 28);
+//        Scuola scuolaMilano16 = new Scuola(16, "La Grande quercia di Via Leoncavallo", 31);
+//        Scuola scuolaMilano17 = new Scuola(17, "Leopardi - Via Bonali", 22);
+//        Scuola scuolaMilano18 = new Scuola(18, "Leopardi - Via Fermi", 22);
+//        Scuola scuolaMilano19 = new Scuola(19, "Mary poppins di Colombarone", 11);
+//        Scuola scuolaMilano20 = new Scuola(20, "Olivieri - Glicine", 37);
+//        Scuola scuolaMilano21 = new Scuola(21, "Peter pan di Via Livorno", 19);
+//        Scuola scuolaMilano22 = new Scuola(22, "Pirandello - Dire fare...", 10);
+//        Scuola scuolaMilano23 = new Scuola(23, "Pirandello - Milleluci", 11);
+//        Scuola scuolaMilano24 = new Scuola(24, "Pirandello - Prato fiorito", 18);
+//        Scuola scuolaMilano25 = new Scuola(25, "Poi poi di Via Ferraris", 22);
+//        Scuola scuolaMilano26 = new Scuola(26, "Specchio magico", 17);
+//        Scuola scuolaMilano27 = new Scuola(27, "Villa San Martino - Via togliatti", 54);
         Scuola scuolaMilano28 = new Scuola(28, "VUOTO", 0);
         Scuola scuolaMilano29 = new Scuola(29, "UNDEFINED", 0);
+
 
         List<Scuola> listScuole = new ArrayList<>();
 //        listScuole.add(scuolaMilano);
@@ -798,21 +866,21 @@ public class MainEsecizioScuola {
         listScuole.add(scuolaMilano10);
         listScuole.add(scuolaMilano11);
         listScuole.add(scuolaMilano12);
-        listScuole.add(scuolaMilano13);
-        listScuole.add(scuolaMilano14);
-        listScuole.add(scuolaMilano15);
-        listScuole.add(scuolaMilano16);
-        listScuole.add(scuolaMilano17);
-        listScuole.add(scuolaMilano18);
-        listScuole.add(scuolaMilano19);
-        listScuole.add(scuolaMilano20);
-        listScuole.add(scuolaMilano21);
-        listScuole.add(scuolaMilano22);
-        listScuole.add(scuolaMilano23);
-        listScuole.add(scuolaMilano24);
-        listScuole.add(scuolaMilano25);
-        listScuole.add(scuolaMilano26);
-        listScuole.add(scuolaMilano27);
+//        listScuole.add(scuolaMilano13);
+//        listScuole.add(scuolaMilano14);
+//        listScuole.add(scuolaMilano15);
+//        listScuole.add(scuolaMilano16);
+//        listScuole.add(scuolaMilano17);
+//        listScuole.add(scuolaMilano18);
+//        listScuole.add(scuolaMilano19);
+//        listScuole.add(scuolaMilano20);
+//        listScuole.add(scuolaMilano21);
+//        listScuole.add(scuolaMilano22);
+//        listScuole.add(scuolaMilano23);
+//        listScuole.add(scuolaMilano24);
+//        listScuole.add(scuolaMilano25);
+//        listScuole.add(scuolaMilano26);
+//        listScuole.add(scuolaMilano27);
         listScuole.add(scuolaMilano28);
         listScuole.add(scuolaMilano29);
 
@@ -849,40 +917,40 @@ public class MainEsecizioScuola {
         listScuola.get(11).setGraduatoria(graduatoria11);
         Graduatoria graduatoria12 = new Graduatoria(listScuola.get(12));
         listScuola.get(12).setGraduatoria(graduatoria12);
-        Graduatoria graduatoria13 = new Graduatoria(listScuola.get(13));
-        listScuola.get(13).setGraduatoria(graduatoria13);
-        Graduatoria graduatoria14 = new Graduatoria(listScuola.get(14));
-        listScuola.get(14).setGraduatoria(graduatoria14);
-        Graduatoria graduatoria15 = new Graduatoria(listScuola.get(15));
-        listScuola.get(15).setGraduatoria(graduatoria15);
-        Graduatoria graduatoria16 = new Graduatoria(listScuola.get(16));
-        listScuola.get(16).setGraduatoria(graduatoria16);
-        Graduatoria graduatoria17 = new Graduatoria(listScuola.get(17));
-        listScuola.get(17).setGraduatoria(graduatoria17);
-        Graduatoria graduatoria18 = new Graduatoria(listScuola.get(18));
-        listScuola.get(18).setGraduatoria(graduatoria18);
-        Graduatoria graduatoria19 = new Graduatoria(listScuola.get(19));
-        listScuola.get(19).setGraduatoria(graduatoria19);
-        Graduatoria graduatoria20 = new Graduatoria(listScuola.get(20));
-        listScuola.get(20).setGraduatoria(graduatoria20);
-        Graduatoria graduatoria21 = new Graduatoria(listScuola.get(21));
-        listScuola.get(21).setGraduatoria(graduatoria21);
-        Graduatoria graduatoria22 = new Graduatoria(listScuola.get(22));
-        listScuola.get(22).setGraduatoria(graduatoria22);
-        Graduatoria graduatoria23 = new Graduatoria(listScuola.get(23));
-        listScuola.get(23).setGraduatoria(graduatoria23);
-        Graduatoria graduatoria24 = new Graduatoria(listScuola.get(24));
-        listScuola.get(24).setGraduatoria(graduatoria24);
-        Graduatoria graduatoria25 = new Graduatoria(listScuola.get(25));
-        listScuola.get(25).setGraduatoria(graduatoria25);
-        Graduatoria graduatoria26 = new Graduatoria(listScuola.get(26));
-        listScuola.get(26).setGraduatoria(graduatoria26);
-        Graduatoria graduatoria27 = new Graduatoria(listScuola.get(27));
-        listScuola.get(27).setGraduatoria(graduatoria27);
-        Graduatoria graduatoria28 = new Graduatoria(listScuola.get(28));
-        listScuola.get(28).setGraduatoria(graduatoria28);
-        Graduatoria graduatoria29 = new Graduatoria(listScuola.get(29));
-        listScuola.get(29).setGraduatoria(graduatoria29);
+//        Graduatoria graduatoria13 = new Graduatoria(listScuola.get(13));
+//        listScuola.get(13).setGraduatoria(graduatoria13);
+//        Graduatoria graduatoria14 = new Graduatoria(listScuola.get(14));
+//        listScuola.get(14).setGraduatoria(graduatoria14);
+//        Graduatoria graduatoria15 = new Graduatoria(listScuola.get(15));
+//        listScuola.get(15).setGraduatoria(graduatoria15);
+//        Graduatoria graduatoria16 = new Graduatoria(listScuola.get(16));
+//        listScuola.get(16).setGraduatoria(graduatoria16);
+//        Graduatoria graduatoria17 = new Graduatoria(listScuola.get(17));
+//        listScuola.get(17).setGraduatoria(graduatoria17);
+//        Graduatoria graduatoria18 = new Graduatoria(listScuola.get(18));
+//        listScuola.get(18).setGraduatoria(graduatoria18);
+//        Graduatoria graduatoria19 = new Graduatoria(listScuola.get(19));
+//        listScuola.get(19).setGraduatoria(graduatoria19);
+//        Graduatoria graduatoria20 = new Graduatoria(listScuola.get(20));
+//        listScuola.get(20).setGraduatoria(graduatoria20);
+//        Graduatoria graduatoria21 = new Graduatoria(listScuola.get(21));
+//        listScuola.get(21).setGraduatoria(graduatoria21);
+//        Graduatoria graduatoria22 = new Graduatoria(listScuola.get(22));
+//        listScuola.get(22).setGraduatoria(graduatoria22);
+//        Graduatoria graduatoria23 = new Graduatoria(listScuola.get(23));
+//        listScuola.get(23).setGraduatoria(graduatoria23);
+//        Graduatoria graduatoria24 = new Graduatoria(listScuola.get(24));
+//        listScuola.get(24).setGraduatoria(graduatoria24);
+//        Graduatoria graduatoria25 = new Graduatoria(listScuola.get(25));
+//        listScuola.get(25).setGraduatoria(graduatoria25);
+//        Graduatoria graduatoria26 = new Graduatoria(listScuola.get(26));
+//        listScuola.get(26).setGraduatoria(graduatoria26);
+//        Graduatoria graduatoria27 = new Graduatoria(listScuola.get(27));
+//        listScuola.get(27).setGraduatoria(graduatoria27);
+        Graduatoria graduatoria28 = new Graduatoria(listScuola.get(13));
+        listScuola.get(13).setGraduatoria(graduatoria28);
+        Graduatoria graduatoria29 = new Graduatoria(listScuola.get(14));
+        listScuola.get(14).setGraduatoria(graduatoria29);
 
         List<Graduatoria> listGrad = new ArrayList<>();
 //        listGrad.add(graduatoriaMilano);
@@ -901,21 +969,21 @@ public class MainEsecizioScuola {
         listGrad.add(graduatoria10);
         listGrad.add(graduatoria11);
         listGrad.add(graduatoria12);
-        listGrad.add(graduatoria13);
-        listGrad.add(graduatoria14);
-        listGrad.add(graduatoria15);
-        listGrad.add(graduatoria16);
-        listGrad.add(graduatoria17);
-        listGrad.add(graduatoria18);
-        listGrad.add(graduatoria19);
-        listGrad.add(graduatoria20);
-        listGrad.add(graduatoria21);
-        listGrad.add(graduatoria22);
-        listGrad.add(graduatoria23);
-        listGrad.add(graduatoria24);
-        listGrad.add(graduatoria25);
-        listGrad.add(graduatoria26);
-        listGrad.add(graduatoria27);
+//        listGrad.add(graduatoria13);
+//        listGrad.add(graduatoria14);
+//        listGrad.add(graduatoria15);
+//        listGrad.add(graduatoria16);
+//        listGrad.add(graduatoria17);
+//        listGrad.add(graduatoria18);
+//        listGrad.add(graduatoria19);
+//        listGrad.add(graduatoria20);
+//        listGrad.add(graduatoria21);
+//        listGrad.add(graduatoria22);
+//        listGrad.add(graduatoria23);
+//        listGrad.add(graduatoria24);
+//        listGrad.add(graduatoria25);
+//        listGrad.add(graduatoria26);
+//        listGrad.add(graduatoria27);
         listGrad.add(graduatoria28);
         listGrad.add(graduatoria29);
 
